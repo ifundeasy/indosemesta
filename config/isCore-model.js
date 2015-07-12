@@ -5,7 +5,7 @@ var type = {
 	notes : String
 };
 
-var mapping = {
+var map = {
 	id : String,
 	username : String,
 	password : String,
