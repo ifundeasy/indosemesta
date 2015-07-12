@@ -5,6 +5,7 @@ GLOBAL.I = GLOBAL.I || (function () {
 	return {
 		Project : project,
 		Dir : dir,
+		R : require('rethinkdb'),
 		File : __filename.replace(dir, ''),
 		Argv : process.argv,
 		IP : process.env.IP || '127.0.0.1',
@@ -22,5 +23,12 @@ GLOBAL.I = GLOBAL.I || (function () {
 	}
 })();
 
-require('./classes/app');
-require('./classes/server');
+I.R.connect(require('./config/rethinkdb').core, function(err, conn) {
+	if (err) {
+		I.Debug(err);
+		throw err;
+	} else {
+		require('./classes/app');
+		require('./classes/server');
+	}
+});
