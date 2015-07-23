@@ -125,4 +125,17 @@ I.Router.route(p + '/:table')
 	.put(updating)
 	.delete(deleting);
 
+/*
+ * todo :
+ * I.Router.route(p + '/custom/:name')
+ *     .all(function (req, res, next) {
+ *         I.Debug(getReq(req));
+ *         next();
+ *     })
+ *     .post(inserting)
+ *     .get(reading)
+ *     .put(updating)
+ *     .delete(deleting);
+ */
+
 module.exports = I.Router;
