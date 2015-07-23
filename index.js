@@ -1,11 +1,9 @@
 GLOBAL.I = GLOBAL.I || (function () {
 	var project = 'Indosemesta';
 	var dir = __dirname + '/';
-
-	return {
+	var obj = {
 		Project : project,
 		Dir : dir,
-		R : require('rethinkdb'),
 		File : __filename.replace(dir, ''),
 		Argv : process.argv,
 		IP : process.env.IP || '127.0.0.1',
@@ -15,20 +13,17 @@ GLOBAL.I = GLOBAL.I || (function () {
 		FS : require('fs'),
 		Path : require('path'),
 		Http : require('http'),
+		Util : require('util'),
 		Favicon : require('serve-favicon'),
 		Logger : require('morgan'),
 		CookieParser : require('cookie-parser'),
 		BodyParser : require('body-parser'),
+		RdbA : require('./config/rethinkdb'),
 		Debug : require('debug')(project + ':server')
-	}
+	};
+
+	return obj
 })();
 
-I.R.connect(require('./config/rethinkdb').core, function(err, conn) {
-	if (err) {
-		I.Debug(err);
-		throw err;
-	} else {
-		require('./classes/app');
-		require('./classes/server');
-	}
-});
+require('./classes/app');
+require('./classes/server');
